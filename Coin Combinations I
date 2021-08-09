@@ -1,0 +1,40 @@
+// @Author: WilliamJiangy
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+ 
+#define testcase() {int t; cin >> t; while(t--) {solve();}}
+#define all(x) (x).begin(), (x).end()
+#define sz(x) ((int)(x).size())
+#define pb push_back
+#define bug() cout << "######PLEASE_NO_BUG######\n"
+ 
+const int nxM = 107, M = 1e9 + 7, nxX = 1e6 + 7;
+ll dp[nxX], n, x, c[nxM];
+ 
+void solve() {
+	cin >> n >> x;
+	for(int i = 0; i < n; i++) {
+		cin >> c[i];
+		dp[c[i]]++;
+	}
+	for(int i = 1; i <= x; i++) {
+		for(int j = 0; j < n; j++) {
+			if(c[j] <= i) {
+				dp[i] = (dp[i] + dp[i - c[j]]) % M;
+			}
+		}
+	}
+	cout << dp[x] << "\n";
+}
+ 
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	#ifndef ONLINE_JUDGE
+	freopen("kext.inp", "r", stdin);
+	#endif
+	solve();
+	return 0;
+}
